@@ -125,6 +125,17 @@ scripts/           doctor, setup, build, package, test, fixture generation
 docs/              architecture decisions, security, MCP, status
 ```
 
+## Performance
+
+ArjunOS is built to stay quiet when you are not using it.
+
+- **One web engine for all messages.** Rendered answers share a single WebKit process instead of starting one per message.
+- **Calm streaming.** Replies are built off to the side and shown about 14 times a second, and the sidebar no longer redraws on every token.
+- **Fast launch.** The chat list loads headers only (cached after the first launch). A chat's messages are read when you open it, and saved off the main thread. Searching message text runs in the background.
+- **Background animation that sleeps.** The drifting background runs at 5 fps and stops when the window is hidden or covered, when ArjunOS is not frontmost, in Low Power Mode, or with Reduce Motion on.
+- **Polite polling.** Engine discovery is quick only while no model is connected, relaxed once one is, and slower when the window is hidden. Opening the window triggers one immediate catch-up.
+- **Browser reading backs off.** If a page keeps looking the same, background reads space out (4 s up to 32 s) and pause while the app is in the background. Sending a message always reads the page fresh.
+
 ## Security model
 
 - **Loopback only.** The bridge listens on `127.0.0.1` with a per-launch bearer token. **Offline mode** makes it refuse every non-loopback endpoint.
