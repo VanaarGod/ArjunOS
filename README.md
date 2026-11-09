@@ -1,131 +1,177 @@
+<div align="center">
+
 # ArjunOS
 
-A local-first AI assistant for macOS. It runs on your own models (Ollama, LM Studio and other OpenAI-compatible servers) and works offline. A native SwiftUI app talks to a small Python service on your Mac that handles models, tools, memory and safety.
+**A local-first personal AI assistant for macOS.**
+Native SwiftUI app · tested Python bridge · your models, your Mac, your data.
 
-> **Status: early and experimental.** The Python bridge and the in-page JavaScript are tested (576 Python tests, 18 Node tests). The Swift app has been written but **has not been compiled or run yet**, so expect build errors. macOS-specific pieces (sandbox, WebKit permissions, OCR, PDF reading) are unverified on a real Mac.
+![macOS 14+](https://img.shields.io/badge/macOS-14%2B-000000?logo=apple&logoColor=white)
+![Swift 5.9](https://img.shields.io/badge/Swift-5.9-F05138?logo=swift&logoColor=white)
+![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
+![License Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue)
+![Status early](https://img.shields.io/badge/status-early-orange)
+
+[Features](#features) · [Quick start](#quick-start) · [Settings](#settings) · [Crew](#crew) · [Architecture](#architecture) · [Security](#security-model) · [Development](#development) · [Docs](#documentation)
+
+</div>
+
+> **Status: early.** The chat core, safety layer, memory, MCP, web search, file reading and the interface are real and have been run on a Mac. Voice, scheduling, plugins, a setup wizard and cloud providers are **not built**. Read [`docs/implementation-status.md`](docs/implementation-status.md) before trusting any claim.
 
 ---
 
 ## Features
 
-### Chat and models
-- Streaming chat with local models, a model picker, conversation history, temporary chats and projects.
-- File and image attachments. Long documents are excerpted by relevance to your question.
-- Reasoning models show "Thinking...". Stuck replies are stopped after 90 seconds, and a dropped connection gets one quiet retry.
+| | |
+|---|---|
+| 💬 **Local chat** | Streams from models you already run: Ollama, LM Studio, llama.cpp, vLLM, or any OpenAI-compatible server. Models are discovered automatically and a default is chosen for you. |
+| 👥 **Crew** | A boss model splits a job (for example, several PDFs) between small worker models, each with its own browser panel. Free RAM decides who is awake. |
+| 🌐 **Built-in browser** | Tabs, downloads, popups, camera/mic prompts. Ask about the page you have open; it is read as the primary source. |
+| 🔎 **Web search** | DuckDuckGo, no key. Asks permission first; only a short query is ever sent, never your chat. |
+| 🧠 **Memory** | Say "remember …". Notes live in local SQLite (FTS5), can be undone, and never store secrets. |
+| 🔌 **MCP tools** | One JSON file per server. See [`docs/mcp.md`](docs/mcp.md). |
+| 📎 **Attachments** | Text, code, CSV, JSON, HTML, PDF, Word, Excel, and images (vision models only). |
+| 📚 **Obsidian** | Connect a vault so the model can search it and add notes to its own folder. It never edits your notes. |
+| 🐾 **Floating assistant** | A pet and mini chat above your other windows, opened with a global shortcut. Supports Codex-format pets. |
+| 🖥️ **Sandboxed terminal** | A short allow-list of commands, each run only after you approve it. |
+| 📝 **Create files** | "Create a markdown file about cats" writes into the workspace folder and never overwrites. |
+| 🧮 **Rich answers** | Markdown, tables, code with Copy, and math (KaTeX), all rendered offline. |
 
-### Agents
-Specialist agents for focused tasks.
+## Quick start
 
-<!-- TODO: list the agents and what's new compared to the original 8 -->
+**Requirements:** macOS 14+, Xcode 15+ (or a Swift 5.9 toolchain), Python 3.11+. Optional: [Ollama](https://ollama.com) or another local model server.
 
-### Memory (Obsidian-based)
-The assistant can recall what it has learned and can optionally use it automatically.
+```bash
+git clone <this repo> && cd jarvis-os
+scripts/doctor.sh        # read-only environment report
+scripts/setup.sh         # creates the bridge virtualenv and installs it
+cd apps/macos && swift run JarvisOS
+```
 
-<!-- TODO: explain how the Obsidian vault is used: where it lives, what gets written, and whether you can edit notes by hand -->
+Install a model yourself; ArjunOS never downloads weights on its own:
 
-### Pet
-<!-- TODO: describe the pet: what it is, where it appears, and how it reacts -->
+```bash
+ollama pull llama3.2:3b
+```
 
-### Integrated browser
-- A side pane with tabs, an address bar (anything that isn't a URL becomes a search), downloads and permission prompts.
-- When you send a message, ArjunOS reads the live page: text, metadata, prices, specs, tables, links and your selection. PDFs are read with PDFKit, and image-heavy pages fall back to Vision OCR.
-- Answers keep **"From this page"** separate from **"From other sources"**. Questions like "is this a good price?" trigger a web search automatically.
-- Sign-in pages are never shared, and form fields and passwords are never read.
+ArjunOS checks `127.0.0.1:11434` every few seconds, lists the models you have, and selects one automatically. Change it from the model menu in the composer.
 
-### Tools
-- **Web search** (DuckDuckGo), after you consent. Results are treated as untrusted and cited like `[1]`.
-- **Sandboxed terminal.** Every command needs your approval. Only a short list of commands is allowed (`node`, `ls`, `cat`, `pwd`, `echo`, `mkdir`, `touch`, `head`, `tail`, `wc`), and `sudo`, deleting, pipes and redirects are blocked. `node` runs under a macOS Seatbelt sandbox with no network, no deleting and no access to your home folder.
-- **File creation.** "Create a markdown file about cats" writes the file into the workspace. It never overwrites an existing file, only allows plain-text types, and never runs the file.
-- **MCP servers** for external tools, each gated by approval.
+### Build the app (.app + .dmg)
 
-### Interface
-- Liquid Glass on macOS 26, with a frosted fallback on older versions.
-- A menu bar icon that changes with state: asleep, thinking, waiting for approval, done or error.
+```bash
+scripts/package.sh              # dist/ArjunOS.app and dist/ArjunOS-0.1.0.dmg
+scripts/package.sh --open       # ...and launch it
+scripts/package.sh --install    # ...and copy it to ~/Applications
+```
 
----
+The app is ad-hoc signed for local use, not notarized. If macOS blocks it on another Mac, right-click → Open. Prefer the packaged app over `swift run`: a bare executable is not a real app bundle, which can make keyboard input unreliable.
+
+If the bridge fails to start the app stays usable and shows the reason (**Settings → Diagnostics → Restart**).
+
+## Settings
+
+Settings has a list on the left and **one page per feature** on the right. Every choice uses the same rows, switches and dropdowns.
+
+| Group | Page | What it controls |
+|---|---|---|
+| Assistant | **General** | The assistant's display name. |
+| | **Floating assistant** | Display mode, shortcut, screen sharing for the mini chat, pet look, size, opacity, position. |
+| Abilities | **Web search** | Permission, when to search (Automatic / When I ask / Never), results per search, a test button. |
+| | **Browser** | Reading the open page, how much page text the model gets, OCR, links, clearing browsing data. |
+| | **Files** | Creating files, the workspace folder, how much attached-file text is read per answer. |
+| | **Terminal** | The command sandbox, Node status, a sandbox self-test. |
+| Knowledge | **Memory** | Whether saved memories are used in answers; jump to the Memory screen. |
+| | **Obsidian** | Vault folder and what the model may read or write. |
+| App | **Privacy** | Offline mode. |
+| | **Diagnostics** | Bridge status and restart, Python path, PDF support, state folder. |
+
+## Crew
+
+Crew is the multi-model workspace. You give the **boss** a job; it hands each piece to a **worker**.
+
+1. Attach files (drag them in) and say what you want.
+2. The boss splits the work, one file per worker. Scanned PDFs are read with a vision model.
+3. Workers can ask the boss questions, share facts with the team, read each other's reports and browse the web in their own panel.
+4. If a worker gets stuck the boss tries to fix it; if that fails, you choose to retry with new instructions or skip it.
+5. **Free RAM decides who is awake.** Plenty of memory: everyone runs together. Less: workers take turns. Very little: one model at a time.
+
+Pick the boss and worker models inside Crew. Workers default to the smallest installed model that can do the job.
 
 ## Architecture
 
 ```
-SwiftUI app (macOS 14+)  --HTTP + SSE-->  Python bridge (FastAPI, loopback only)
-  chat, sidebar, browser                     |
-  menu bar icon                              +--> local models (Ollama / OpenAI-compatible)
-  WKWebView tabs                             +--> memory
-                                             +--> web search
-                                             +--> sandboxed terminal + file creation
-                                             +--> MCP servers (approval-gated)
+┌──────────────────────────── macOS ────────────────────────────┐
+│  ArjunOS.app  (SwiftUI)                                        │
+│   UI · conversations (JSON files) · Keychain wrapper           │
+│        │  http://127.0.0.1:<random port>   (loopback only)     │
+│        │  Authorization: Bearer <random per-launch token>      │
+│        ▼                                                       │
+│  jarvis_bridge  (Python, FastAPI)                              │
+│   discovery → providers → orchestrator → tools                 │
+│   memory · MCP · crew · files · settings · audit               │
+│        ▼                    ▼                    ▼             │
+│  Ollama / OpenAI-    MCP servers          DuckDuckGo           │
+│  compatible (local)  (stdio or HTTPS)     (queries only)       │
+└────────────────────────────────────────────────────────────────┘
 ```
 
-- The app starts the bridge itself on a random port with a minimal environment, so your shell secrets are not inherited. The bridge is protected by a bearer token and host checks.
-- The bridge **refuses remote model endpoints**, so chat text and page content stay on your Mac.
-- The model calls a tool by starting its reply with a tag: `<search>`, `<recall>`, `<shell>`, `<file name="...">` or `<tool name="...">`.
+Swift gives a native app; Python has mature libraries for PDFs, SQLite FTS and HTTP. The seam is a versioned local HTTP API (`/v1/...`). The app owns exactly one child process (the bridge), starts it with a minimal environment, and stops it on quit.
+
+```
+apps/macos/        Swift package: JarvisCore (models, client) + JarvisOS (UI) + tests
+  Sources/JarvisOS/Settings/   the Settings pages and their shared components
+  Sources/JarvisOS/Crew/       the Crew workspace
+services/python/   the bridge (jarvis_bridge) and its tests
+scripts/           doctor, setup, build, package, test, fixture generation
+docs/              architecture decisions, security, MCP, status
+```
 
 ## Security model
 
-| Risk | Protection |
+- **Loopback only.** The bridge listens on `127.0.0.1` with a per-launch bearer token. **Offline mode** makes it refuse every non-loopback endpoint.
+- **One approval per action.** Approvals cover a single tool call with its exact arguments, expire after 5 minutes and can't be reused.
+- **Terminal sandbox.** Commands are parsed into an argument list and never reach a shell. `node` also runs under macOS Seatbelt (no network, no spawning programs, no deleting files, no writing outside the workspace). Allowed: `node`, `ls`, `cat`, `pwd`, `echo`, `mkdir`, `touch`, `head`, `tail`, `wc`. Never allowed: `sudo`/`su`, `rm`, pipes, redirects, `&&`. Known gap: JavaScript can overwrite files *inside* the workspace.
+- **Untrusted pages.** Page text is fenced as data, and while a page is in context the terminal and external tools are switched off.
+- **Secrets stay out.** API keys and anything that looks like a secret are never saved to memory or mirrored to Obsidian.
+- **Resilience.** Heartbeat every 5 s; a stalled reply is stopped after 90 s with a clear error.
+
+Details: [`docs/security.md`](docs/security.md).
+
+## Where your data lives
+
+| What | Path |
 |---|---|
-| Model or web page instructing the terminal | Every command needs approval. The terminal and tools are switched off while a web page is in context. |
-| Scripts deleting files or using the network | Seatbelt sandbox plus a list of allowed commands. |
-| Prompt injection from web or search text | Content is fenced as untrusted data and screened for injection phrases. |
-| Secrets in text the model can see | Secret patterns are redacted. |
-| Data leaving the Mac | Remote model endpoints are refused. |
-| File creation abuse | Workspace only, safe file types only, never overwrites. |
+| State (memory, audit) | `~/Library/Application Support/JarvisOS/state` |
+| Conversations | `~/Library/Application Support/JarvisOS/conversations/*.json` |
+| Workspace (created files, terminal) | `…/state/workspace` |
+| Bridge virtualenv | `~/Library/Application Support/JarvisOS/venv` |
 
-There is also an audit log and a security policy engine. See [`docs/`](docs/) for details.
+Back up by copying that folder. Uninstall by deleting it.
 
----
+## Development
 
-## Getting started
-
-**Requirements**
-- macOS 14 or later (Liquid Glass needs macOS 26)
-- Xcode / Swift toolchain
-- Python 3
-- A local model server such as [Ollama](https://ollama.com) or [LM Studio](https://lmstudio.ai)
-
-**Build and run**
 ```bash
-git clone https://github.com/VanaarGod/ArjunOS.git
-cd ArjunOS
-scripts/package.sh --open
+scripts/test.sh                              # everything that can run on this machine
+cd services/python && python -m pytest -q    # bridge tests only
+cd apps/macos && swift test                  # Swift tests
+cd apps/macos/Web && npm test                # markdown / math renderer
 ```
 
-**Run the tests**
-```bash
-scripts/test.sh
-```
+`scripts/test.sh` also checks that the API contract fixtures are current (`scripts/gen_fixtures.py --check`). Parts that need Node or Swift are skipped with a message when those tools are missing.
 
-`scripts/` also includes `setup`, `build`, `doctor` and `gen_fixtures` helpers.
+## Documentation
 
-## Project layout
-
-```
-apps/macos/           SwiftUI app
-  Sources/JarvisCore/   testable logic (bridge client, SSE, chat reducer, stores)
-  Sources/JarvisOS/     the app (UI, design system, menu bar, browser)
-  Tests/                Swift tests and Node/jsdom tests for page scripts
-services/python/      Python bridge
-  src/jarvis_bridge/    api, chat, inference, discovery, memory, mcp, agents, tools, security
-  tests/
-scripts/              setup, build, package, test, doctor
-docs/                 architecture decisions, security, MCP notes
-```
-
-> The app is called **ArjunOS**, but internal names are still `JarvisOS` and `jarvis_bridge`, so existing data keeps working. App data lives in `~/Library/Application Support/JarvisOS/`.
+| | |
+|---|---|
+| [`docs/implementation-status.md`](docs/implementation-status.md) | What is verified, mocked, unbuilt or missing |
+| [`docs/security.md`](docs/security.md) | Threat model and safeguards |
+| [`docs/mcp.md`](docs/mcp.md) | Adding MCP servers |
+| [`docs/integration-matrix.md`](docs/integration-matrix.md) | Supported engines and tools |
+| [`docs/architecture-decisions/`](docs/architecture-decisions) | ADRs |
 
 ## Roadmap
 
-- **Kid-safe browsing mode** (in progress): URL, search and page classifier, approved-sites-only mode, parent PIN, settings screen.
-- Voice input.
-- Private browsing tabs.
-- "Ask about selection" from the right-click menu.
-
-## Known limitations
-
-- Some popup sign-ins ("Sign in with Google/Apple") don't work, because popups open as ordinary tabs.
-- Content inside frames from other sites can't be read.
-- The page isn't re-read if you scroll while the AI is answering.
+Not built yet: voice (speech-to-text and text-to-speech), scheduled jobs, plugins and skills, a first-run setup wizard, knowledge-base indexing of whole folders, and cloud providers (deliberately blocked today).
 
 ## License
 
-<!-- TODO: choose a license -->
+[Apache-2.0](LICENSE). See [`NOTICE`](NOTICE) for third-party terms, including Piper's GPL.
