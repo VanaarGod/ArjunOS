@@ -1,5 +1,3 @@
-<div align="center">
-
 # ArjunOS
 
 **A local-first personal AI assistant for macOS.**
