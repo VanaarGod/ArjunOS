@@ -1,0 +1,7 @@
+{
+  "name": "jarvis-web-renderer-tests",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test test/render.test.mjs" },
+  "devDependencies": { "jsdom": "^30.1.3" }
+}

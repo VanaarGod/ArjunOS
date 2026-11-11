@@ -1,0 +1,66 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "enabled": true,
+        "id": "analysis",
+        "name": "Analysis",
+        "role": "analysis"
+      },
+      {
+        "children": [],
+        "enabled": true,
+        "id": "coding",
+        "name": "Coding",
+        "role": "coding"
+      },
+      {
+        "children": [],
+        "enabled": true,
+        "id": "memory",
+        "name": "Memory",
+        "role": "memory"
+      },
+      {
+        "children": [],
+        "enabled": true,
+        "id": "operator",
+        "name": "Computer Operator",
+        "role": "operator"
+      },
+      {
+        "children": [],
+        "enabled": true,
+        "id": "research",
+        "name": "Research",
+        "role": "research"
+      },
+      {
+        "children": [],
+        "enabled": true,
+        "id": "scheduler",
+        "name": "Scheduler",
+        "role": "scheduler"
+      },
+      {
+        "children": [],
+        "enabled": true,
+        "id": "security",
+        "name": "Security",
+        "role": "security"
+      },
+      {
+        "children": [],
+        "enabled": true,
+        "id": "voice",
+        "name": "Voice",
+        "role": "voice"
+      }
+    ],
+    "enabled": true,
+    "id": "jarvis",
+    "name": "JARVIS Core",
+    "role": "orchestrator"
+  }
+]

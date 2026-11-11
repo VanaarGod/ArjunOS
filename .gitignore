@@ -1,0 +1,14 @@
+.build/
+*.xcodeproj/xcuserdata/
+.DS_Store
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+venv/
+.venv/
+*.db
+*.corrupt
+.env
+node_modules/
+dist/

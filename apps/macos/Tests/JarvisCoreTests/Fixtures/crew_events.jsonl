@@ -1,0 +1,101 @@
+{"start": {"id": "crew_9ca238ce32", "plan": {"feasible": true, "mode": "swap", "label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "budget": 11166914970, "boss_bytes": 10307921510, "worker_bytes": 2899102924, "reason": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question. (Your choice needed more memory than the 10.4 GB available, so this is the best that fits.)", "warnings": []}, "boss": "ol|boss:8b"}}
+{"memory": {"total": 17179869184, "available": 12884901888, "budget": 11166914970, "headroom": 1717986918, "pressure": "normal", "used_pct": 25.0, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": []}}
+{"agent_state": {"id": "boss", "state": "working", "model": "ol|boss:8b", "detail": "planning"}}
+{"ping": true}
+{"model_event": {"ref": "ol|boss:8b", "state": "loading"}}
+{"model_event": {"ref": "ol|boss:8b", "state": "awake"}}
+{"memory": {"total": 17179869184, "available": 2576980378, "budget": 858993460, "headroom": 1717986918, "pressure": "normal", "used_pct": 85.0, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": [{"ref": "ol|boss:8b", "bytes": 10307921510, "busy": true}]}}
+{"agent_state": {"id": "boss", "state": "idle", "model": "ol|boss:8b", "detail": "plan ready"}}
+{"plan": {"subtasks": [{"id": "w1", "title": "Read doc1", "inputs": ["doc1.pdf"], "model": "ol|mini:3b", "instructions": "Summarise doc1.pdf"}, {"id": "w2", "title": "Web check", "inputs": [], "model": "ol|mini:3b", "instructions": "Check the site"}], "conventions": ["Dates as YYYY-MM-DD"], "glossary": {"ARR": "annual recurring revenue"}}}
+{"agent_state": {"id": "w1", "state": "queued", "model": "ol|mini:3b"}}
+{"model_event": {"ref": "ol|boss:8b", "state": "sleeping"}}
+{"model_event": {"ref": "ol|mini:3b", "state": "loading"}}
+{"model_event": {"ref": "ol|mini:3b", "state": "awake"}}
+{"memory": {"total": 17179869184, "available": 9985798964, "budget": 8267812046, "headroom": 1717986918, "pressure": "normal", "used_pct": 41.9, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": [{"ref": "ol|mini:3b", "bytes": 2899102924, "busy": true}]}}
+{"agent_state": {"id": "w1", "state": "working", "model": "ol|mini:3b"}}
+{"question": {"id": "q_471e2d6c", "from": "w1", "text": "Which fiscal year?"}}
+{"agent_state": {"id": "boss", "state": "working", "model": "ol|boss:8b", "detail": "answering w1"}}
+{"model_event": {"ref": "ol|mini:3b", "state": "sleeping"}}
+{"model_event": {"ref": "ol|boss:8b", "state": "loading"}}
+{"model_event": {"ref": "ol|boss:8b", "state": "awake"}}
+{"memory": {"total": 17179869184, "available": 2576980378, "budget": 858993460, "headroom": 1717986918, "pressure": "normal", "used_pct": 85.0, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": [{"ref": "ol|boss:8b", "bytes": 10307921510, "busy": true}]}}
+{"agent_state": {"id": "boss", "state": "idle", "model": "ol|boss:8b", "detail": ""}}
+{"agent_state": {"id": "w1", "state": "waiting_user", "model": "ol|mini:3b"}}
+{"needs_user": {"id": "u_e7eef162", "from": "w1", "kind": "boss_needs_user", "question": "Fiscal 2023 or 2024?"}}
+{"agent_state": {"id": "w2", "state": "queued", "model": "ol|mini:3b"}}
+{"model_event": {"ref": "ol|boss:8b", "state": "sleeping"}}
+{"model_event": {"ref": "ol|mini:3b", "state": "loading"}}
+{"model_event": {"ref": "ol|mini:3b", "state": "awake"}}
+{"memory": {"total": 17179869184, "available": 9985798964, "budget": 8267812046, "headroom": 1717986918, "pressure": "normal", "used_pct": 41.9, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": [{"ref": "ol|mini:3b", "bytes": 2899102924, "busy": true}]}}
+{"agent_state": {"id": "w2", "state": "working", "model": "ol|mini:3b"}}
+{"agent_problem": {"id": "w2", "attempt": 1, "message": "model crashed"}}
+{"agent_state": {"id": "boss", "state": "working", "model": "ol|boss:8b", "detail": "fixing w2"}}
+{"model_event": {"ref": "ol|mini:3b", "state": "sleeping"}}
+{"model_event": {"ref": "ol|boss:8b", "state": "loading"}}
+{"model_event": {"ref": "ol|boss:8b", "state": "awake"}}
+{"memory": {"total": 17179869184, "available": 2576980378, "budget": 858993460, "headroom": 1717986918, "pressure": "normal", "used_pct": 85.0, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": [{"ref": "ol|boss:8b", "bytes": 10307921510, "busy": true}]}}
+{"agent_state": {"id": "boss", "state": "idle", "model": "ol|boss:8b", "detail": ""}}
+{"agent_state": {"id": "w2", "state": "queued", "model": "ol|vis:4b", "detail": "trying a stronger model"}}
+{"model_event": {"ref": "ol|boss:8b", "state": "sleeping"}}
+{"model_event": {"ref": "ol|vis:4b", "state": "loading"}}
+{"model_event": {"ref": "ol|vis:4b", "state": "awake"}}
+{"memory": {"total": 17179869184, "available": 8750995866, "budget": 7033008948, "headroom": 1717986918, "pressure": "normal", "used_pct": 49.1, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": [{"ref": "ol|vis:4b", "bytes": 4133906022, "busy": true}]}}
+{"agent_state": {"id": "w2", "state": "working", "model": "ol|vis:4b"}}
+{"browse": {"id": "b_8e99504a", "agent": "w2", "url": "https://example.com"}}
+{"agent_state": {"id": "w1", "state": "working", "model": "ol|mini:3b"}}
+{"answer": {"id": "q_471e2d6c", "to": "w1", "text": "2023"}}
+{"model_event": {"ref": "ol|mini:3b", "state": "loading"}}
+{"model_event": {"ref": "ol|mini:3b", "state": "awake"}}
+{"memory": {"total": 17179869184, "available": 5851892942, "budget": 4133906024, "headroom": 1717986918, "pressure": "normal", "used_pct": 65.9, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": [{"ref": "ol|mini:3b", "bytes": 2899102924, "busy": true}, {"ref": "ol|vis:4b", "bytes": 4133906022, "busy": false}]}}
+{"agent_state": {"id": "w1", "state": "working", "model": "ol|mini:3b"}}
+{"agent": "w1", "ev": {"delta": "Report one. <post key=\"currency\">EUR</po"}}
+{"agent": "w1", "ev": {"delta": "st> Report one. <post key=\"currency\">EUR"}}
+{"agent": "w1", "ev": {"delta": "</post> Report one. <post key=\"currency\""}}
+{"agent": "w1", "ev": {"delta": ">EUR</post> Report one. <post key=\"curre"}}
+{"agent": "w1", "ev": {"delta": "ncy\">EUR</post> Report one. <post key=\"c"}}
+{"agent": "w1", "ev": {"delta": "urrency\">EUR</post> Report one. <post ke"}}
+{"agent": "w1", "ev": {"delta": "y=\"currency\">EUR</post> Report one. <pos"}}
+{"agent": "w1", "ev": {"delta": "t key=\"currency\">EUR</post> Report one. "}}
+{"agent": "w1", "ev": {"delta": "<post key=\"currency\">EUR</post> Report o"}}
+{"agent": "w1", "ev": {"delta": "ne. <post key=\"currency\">EUR</post> Repo"}}
+{"agent": "w1", "ev": {"delta": "rt one. <post key=\"currency\">EUR</post> "}}
+{"agent": "w1", "ev": {"delta": "Report one. <post key=\"currency\">EUR</po"}}
+{"agent": "w1", "ev": {"delta": "st> Report one. <post key=\"currency\">EUR"}}
+{"agent": "w1", "ev": {"delta": "</post> "}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"shared": {"agent": "w1", "key": "currency", "value": "EUR"}}
+{"agent_state": {"id": "w1", "state": "done", "model": "ol|mini:3b"}}
+{"result": {"id": "w1", "title": "Read doc1", "summary": "Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.", "inputs": ["doc1.pdf"]}}
+{"agent_state": {"id": "w2", "state": "working", "model": "ol|vis:4b"}}
+{"agent": "w2", "ev": {"delta": "Report two. Report two. Report two. Repo"}}
+{"agent": "w2", "ev": {"delta": "rt two. Report two. Report two. Report t"}}
+{"agent": "w2", "ev": {"delta": "wo. Report two. Report two. Report two. "}}
+{"agent": "w2", "ev": {"delta": "Report two. Report two. Report two. Repo"}}
+{"agent": "w2", "ev": {"delta": "rt two. Report two. Report two. Report t"}}
+{"agent": "w2", "ev": {"delta": "wo. Report two. Report two. Report two. "}}
+{"agent": "w2", "ev": {"delta": "Report two. Report two. Report two. Repo"}}
+{"agent": "w2", "ev": {"delta": "rt two. Report two. Report two. Report t"}}
+{"agent": "w2", "ev": {"delta": "wo. Report two. Report two. Report two. "}}
+{"agent_state": {"id": "w2", "state": "done", "model": "ol|vis:4b"}}
+{"result": {"id": "w2", "title": "Web check", "summary": "Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two.", "inputs": []}}
+{"agent_state": {"id": "boss", "state": "working", "model": "ol|boss:8b", "detail": "writing the final answer"}}
+{"model_event": {"ref": "ol|vis:4b", "state": "sleeping"}}
+{"model_event": {"ref": "ol|mini:3b", "state": "sleeping"}}
+{"model_event": {"ref": "ol|boss:8b", "state": "loading"}}
+{"model_event": {"ref": "ol|boss:8b", "state": "awake"}}
+{"memory": {"total": 17179869184, "available": 2576980378, "budget": 858993460, "headroom": 1717986918, "pressure": "normal", "used_pct": 85.0, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": [{"ref": "ol|boss:8b", "bytes": 10307921510, "busy": true}]}}
+{"agent_state": {"id": "boss", "state": "done", "model": "ol|boss:8b", "detail": ""}}
+{"final": {"text": "The combined answer.", "context": "# Read doc1 (w1)\nInputs: doc1.pdf\n\nReport one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.  Report one.\n\n# Web check (w2)\nInputs: none\n\nReport two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two. Report two.", "reports": [{"id": "w1", "title": "Read doc1", "status": "done", "chars": 154}, {"id": "w2", "title": "Web check", "status": "done", "chars": 359}]}}
+{"memory": {"total": 17179869184, "available": 2576980378, "budget": 858993460, "headroom": 1717986918, "pressure": "normal", "used_pct": 85.0, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": [{"ref": "ol|boss:8b", "bytes": 10307921510, "busy": false}]}}
+{"memory": {"total": 17179869184, "available": 2576980378, "budget": 858993460, "headroom": 1717986918, "pressure": "normal", "used_pct": 85.0, "swap_used": 0, "cpu_count": 1, "on_battery": null, "source": "psutil", "mode": "swap", "mode_label": "One model at a time: the boss sleeps while workers work, and wakes up only to answer a question.", "max_workers": 1, "loaded": [{"ref": "ol|boss:8b", "bytes": 10307921510, "busy": false}]}}
+{"done": true}

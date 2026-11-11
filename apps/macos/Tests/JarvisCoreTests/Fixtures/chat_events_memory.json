@@ -1,0 +1,26 @@
+[
+  {
+    "memory_saved": {
+      "category": "knowledge",
+      "content": "my cat is called Biscuit",
+      "id": "mem_ID"
+    }
+  },
+  {
+    "delta": "Hello"
+  },
+  {
+    "delta": " from"
+  },
+  {
+    "delta": " mock"
+  },
+  {
+    "delta": " Ollama"
+  },
+  {
+    "completion_tokens": 4,
+    "done": true,
+    "prompt_tokens": 7
+  }
+]

@@ -24,12 +24,13 @@ Native SwiftUI app · tested Python bridge · your models, your Mac, your data.
 | | |
 |---|---|
 | 💬 **Local chat** | Streams from models you already run: Ollama, LM Studio, llama.cpp, vLLM, or any OpenAI-compatible server. Models are discovered automatically and a default is chosen for you. |
-| 👥 **Crew** | A boss model splits a job (for example, several PDFs) between small worker models, each with its own browser panel. Free RAM decides who is awake. |
+| 👥 **Crew** | A boss model splits a job (for example, several PDFs) between small worker models, each with its own browser panel. Free RAM decides who is awake, or choose **boss sleeps, several workers at once**. |
 | 🌐 **Built-in browser** | Tabs, downloads, popups, camera/mic prompts. Ask about the page you have open; it is read as the primary source. |
 | 🔎 **Web search** | DuckDuckGo, no key. Asks permission first; only a short query is ever sent, never your chat. |
-| 🧠 **Memory** | Say "remember …". Notes live in local SQLite (FTS5), can be undone, and never store secrets. |
+| 🧠 **Memory** | Say "remember …". Notes live in local SQLite (FTS5), are all listed when you open the screen, can be undone, and never store secrets. |
+| 🪪 **Profile** | Tell it what to call you (asked once at first launch), set how you like answers, and write your own standing instructions. Kept tiny on purpose, see [Profile](#profile). |
 | 🔌 **MCP tools** | One JSON file per server. See [`docs/mcp.md`](docs/mcp.md). |
-| 📎 **Attachments** | Text, code, CSV, JSON, HTML, PDF, Word, Excel, and images (vision models only). |
+| 📎 **Any file** | Attach a file, or just write its path in a message ("summarise ~/Documents/budget.xlsx"). Text, code, PDF, Word, Excel, PowerPoint, OpenDocument, RTF, EPUB, SQLite, archives, images (vision models) and anything else. See [Files](#reading-any-file). |
 | 📚 **Obsidian** | Connect a vault so the model can search it and add notes to its own folder. It never edits your notes. |
 | 🐾 **Floating assistant** | A pet and mini chat above your other windows, opened with a global shortcut. Supports Codex-format pets. |
 | 🖥️ **Sandboxed terminal** | A short allow-list of commands, each run only after you approve it. |
@@ -73,7 +74,8 @@ Settings has a list on the left and **one page per feature** on the right. Every
 
 | Group | Page | What it controls |
 |---|---|---|
-| Assistant | **General** | The assistant's display name. |
+| Assistant | **Profile** | What to call you, pronouns, language, time zone, answer style, your own instructions, and a live token meter. |
+| | **General** | The assistant's display name. |
 | | **Floating assistant** | Display mode, shortcut, screen sharing for the mini chat, pet look, size, opacity, position. |
 | Abilities | **Web search** | Permission, when to search (Automatic / When I ask / Never), results per search, a test button. |
 | | **Browser** | Reading the open page, how much page text the model gets, OCR, links, clearing browsing data. |
@@ -95,6 +97,34 @@ Crew is the multi-model workspace. You give the **boss** a job; it hands each pi
 5. **Free RAM decides who is awake.** Plenty of memory: everyone runs together. Less: workers take turns. Very little: one model at a time.
 
 Pick the boss and worker models inside Crew. Workers default to the smallest installed model that can do the job.
+
+**How workers share memory** (Crew → Memory):
+
+| Choice | What happens |
+|---|---|
+| Automatic | The most capable arrangement that fits your free memory. |
+| Boss and several workers at once | Everything stays loaded. Needs the most memory. |
+| Boss awake, one worker at a time | The boss stays loaded; workers take turns. |
+| **Boss sleeps, several workers at once** | The boss model is unloaded while up to *N* workers run in parallel. It wakes (the workers pause after their current step) to answer a question, review reports and write the final answer. Fast on a tight Mac. |
+| One model at a time | Slowest, least memory. |
+
+## Reading any file
+
+Write a path in your message and the file is read for you: `~/Documents/Q3 deck.pptx`, a quoted path with spaces, a `file://` link, `Downloads/data.csv`, or a folder (you get a listing). Drag-and-drop and the file picker accept any type too.
+
+| Type | What the model gets |
+|---|---|
+| Text, code, CSV, JSON, logs, HTML | The text. A huge log is read as its start and end. |
+| PDF, Word (.docx), Excel (.xlsx/.xlsm) | Text, headings, tables, every sheet. |
+| PowerPoint (.pptx) | Slides in deck order: titles, text, tables, speaker notes, picture descriptions. |
+| OpenDocument, RTF, EPUB | The text. |
+| SQLite, property lists | Schema, row counts and sample rows; the contents as JSON. |
+| Zip and tar archives | A listing plus the text files inside (never unpacked to disk). |
+| Old .doc / .xls / .ppt | Best-effort text pulled out of the binary, clearly labelled as approximate. |
+| Images | Sent to a vision model (PNG, JPEG, GIF, WebP). |
+| Anything else | What it is, its size, and a sample of any readable text inside, never presented as its real content. |
+
+Safety: only paths **you type** are read (never ones found in a web page, file or tool result), the content is fenced as untrusted data, you are told exactly what was read, and at most six files are read per message. **Credential stores are never read**: SSH and cloud keys, keychains, browser logins and any file containing a private key, because if a document tricked the assistant, those are the secrets that could leak. Turn the whole feature off in Settings → Files.
 
 ## Architecture
 
@@ -125,6 +155,20 @@ scripts/           doctor, setup, build, package, test, fixture generation
 docs/              architecture decisions, security, MCP, status
 ```
 
+## Profile
+
+The first time you open ArjunOS it asks one question: **what should I call you?** The answer is saved to your profile and becomes the first memory (visible and editable in Memory). Nothing is read from macOS.
+
+**Settings → Profile** adds optional details (full name, pronouns, language, time zone, what you do), answer style dropdowns (directness, formality, length, humor, emojis, feedback) and a box for your own standing instructions, which works as your system prompt.
+
+All of it is context sent with every message, so it is built to be cheap:
+
+- **Terse lines, not prose.** A typical profile compiles to about 40 to 70 tokens. Fields left empty, and choices like "Balanced", add nothing.
+- **Hard limits.** Each field has a maximum, and the whole block is capped at 1,600 characters (about 400 tokens). The page shows a live meter and the exact text that is sent.
+- **Sent first, byte-identical every turn.** Engines that reuse the already-processed start of a prompt (Ollama, llama.cpp) compute it once per chat. Per-message extras such as recalled memories come after it.
+- **No double-spending.** The name memory is not injected again when the profile already says it, and it does not switch on the recall tool by itself.
+- **Stays out of the way.** It is never written into saved chats, and Crew workers and memory-rewriting calls never receive it. One switch turns it off without deleting anything.
+
 ## Performance
 
 ArjunOS is built to stay quiet when you are not using it.
@@ -151,7 +195,7 @@ Details: [`docs/security.md`](docs/security.md).
 
 | What | Path |
 |---|---|
-| State (memory, audit) | `~/Library/Application Support/JarvisOS/state` |
+| State (memory, profile, audit) | `~/Library/Application Support/JarvisOS/state` |
 | Conversations | `~/Library/Application Support/JarvisOS/conversations/*.json` |
 | Workspace (created files, terminal) | `…/state/workspace` |
 | Bridge virtualenv | `~/Library/Application Support/JarvisOS/venv` |

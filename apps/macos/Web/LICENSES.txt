@@ -1,0 +1,7 @@
+Bundled third-party code (offline; nothing is fetched at runtime):
+
+KaTeX (katex.min.js, katex.min.css, fonts/*.woff2) — MIT License, Copyright (c) 2013-2020 Khan Academy and other contributors.
+  https://github.com/KaTeX/KaTeX   The KaTeX fonts are licensed under their own open licences (see the KaTeX repository, fonts/LICENSE).
+marked (marked.umd.js) — MIT License, Copyright (c) 2018+ MarkedJS, (c) 2011-2018 Christopher Jeffrey.
+  https://github.com/markedjs/marked
+render.js, chat.html, chat.css — part of JARVIS OS (Apache-2.0).

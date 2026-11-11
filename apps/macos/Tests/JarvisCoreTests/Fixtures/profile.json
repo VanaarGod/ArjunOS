@@ -1,0 +1,65 @@
+{
+  "about": "",
+  "call_me": "Arjun",
+  "chars": 149,
+  "choices": {
+    "directness": [
+      "direct",
+      "balanced",
+      "gentle"
+    ],
+    "emoji": [
+      "never",
+      "sometimes",
+      "often"
+    ],
+    "feedback": [
+      "blunt",
+      "balanced",
+      "gentle"
+    ],
+    "formality": [
+      "casual",
+      "neutral",
+      "formal"
+    ],
+    "humor": [
+      "none",
+      "light",
+      "playful"
+    ],
+    "length": [
+      "brief",
+      "balanced",
+      "detailed"
+    ]
+  },
+  "compiled": "User: Arjun. Address them as Arjun.\nReply style: direct, no hedging, brief.\nTheir standing instructions (follow them): Show code before explanations.",
+  "directness": "direct",
+  "emoji": "",
+  "feedback": "",
+  "formality": "",
+  "humor": "",
+  "include": true,
+  "instructions": "Show code before explanations.",
+  "language": "",
+  "length": "brief",
+  "limits": {
+    "about": 500,
+    "call_me": 40,
+    "instructions": 1200,
+    "language": 60,
+    "name": 60,
+    "pronouns": 30,
+    "role": 80,
+    "time_zone": 60
+  },
+  "max_chars": 1600,
+  "name": "",
+  "onboarded": true,
+  "pronouns": "",
+  "role": "",
+  "time_zone": "",
+  "tokens": 38,
+  "updated": 0.0
+}

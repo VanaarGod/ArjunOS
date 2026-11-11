@@ -1,0 +1,19 @@
+{
+  "allowed": [
+    "node",
+    "ls",
+    "cat",
+    "pwd",
+    "echo",
+    "mkdir",
+    "touch",
+    "head",
+    "tail",
+    "wc"
+  ],
+  "enabled": true,
+  "javascript_ready": true,
+  "node": "/usr/local/bin/node",
+  "sandbox": "seatbelt",
+  "workspace": "WORKSPACE"
+}

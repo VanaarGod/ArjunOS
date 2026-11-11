@@ -1,0 +1,14 @@
+[
+  {
+    "agent": "research",
+    "args": {
+      "n": 3,
+      "ok": true,
+      "to": "a@b.c"
+    },
+    "flags": [],
+    "id": "appr_ID",
+    "target": "x",
+    "tool": "mcp:x/send"
+  }
+]

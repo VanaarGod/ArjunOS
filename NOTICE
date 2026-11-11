@@ -1,0 +1,17 @@
+JARVIS OS
+Copyright 2026 JARVIS OS contributors. Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This project talks to the following third-party software over documented interfaces and does not bundle or modify any of it.
+Each keeps its own license, copyright notices and trademarks.
+
+  Ollama, LM Studio, llama.cpp (MIT), whisper.cpp (MIT), Playwright (Apache-2.0), LiteLLM (MIT, enterprise
+  directory excluded): referenced as optional external services only.
+  DuckDuckGo: web search sends a short query to html.duckduckgo.com when the user allows it; subject to DuckDuckGo's terms. Not affiliated.
+
+  Piper: the maintained project (OHF-Voice/piper1-gpl) is GPL-3.0. JARVIS OS must only ever invoke Piper as a
+  separate executable (never link, import or bundle it), and individual voice models carry their own licenses.
+
+Python dependency: pypdf (BSD-3-Clause) reads PDF text.
+Bundled in the app (offline): KaTeX (MIT, Khan Academy and contributors) and marked (MIT, MarkedJS) for markdown/math rendering; see apps/macos/Web/LICENSES.txt.
+
+Third-party names are used for identification only and do not imply endorsement.

@@ -1,0 +1,1 @@
+{ "name": "arjunos-page-scripts-tests", "private": true, "type": "module", "scripts": { "test": "node --test" }, "devDependencies": { "jsdom": "^24.1.0" } }

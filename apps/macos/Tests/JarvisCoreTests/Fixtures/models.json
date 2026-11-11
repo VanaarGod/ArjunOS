@@ -1,0 +1,36 @@
+[
+  {
+    "capabilities": {
+      "chat": true,
+      "embeddings": false,
+      "streaming": true,
+      "structured_output": null,
+      "tools": true,
+      "vision": false
+    },
+    "context_length": 8192,
+    "endpoint": "127.0.0.1:PORT",
+    "family": "llama",
+    "id": "llama3.2:3b",
+    "local": true,
+    "quantization": "Q4_K_M",
+    "size_bytes": 2000000000
+  },
+  {
+    "capabilities": {
+      "chat": true,
+      "embeddings": false,
+      "streaming": true,
+      "structured_output": null,
+      "tools": false,
+      "vision": false
+    },
+    "context_length": 8192,
+    "endpoint": "127.0.0.1:PORT",
+    "family": "llama",
+    "id": "qwen2.5-coder:7b",
+    "local": true,
+    "quantization": "Q4_K_M",
+    "size_bytes": 2000000000
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "files_used": [
+      {
+        "excerpted": false,
+        "name": "manual.txt",
+        "total_chars": 20,
+        "used_chars": 20
+      }
+    ]
+  },
+  {
+    "delta": "Hello"
+  },
+  {
+    "delta": " from"
+  },
+  {
+    "delta": " mock"
+  },
+  {
+    "delta": " Ollama"
+  },
+  {
+    "completion_tokens": 4,
+    "done": true,
+    "prompt_tokens": 7
+  }
+]

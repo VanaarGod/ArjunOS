@@ -1,0 +1,22 @@
+[
+  {
+    "agent_id": null,
+    "category": "preference",
+    "confidence": 1.0,
+    "conflicts_with": null,
+    "content": "prefers metric units",
+    "created": 0.0,
+    "embedding_status": "none",
+    "expires": null,
+    "id": "mem_ID",
+    "last_accessed": 0.0,
+    "project": null,
+    "provenance": {},
+    "sensitivity": "personal",
+    "source": "user",
+    "source_ref": null,
+    "status": "confirmed",
+    "subject_key": null,
+    "visibility": "private"
+  }
+]

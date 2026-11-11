@@ -1,0 +1,47 @@
+[
+  {
+    "tool": {
+      "id": 1,
+      "name": "web_search",
+      "query": "example domain",
+      "status": "running"
+    }
+  },
+  {
+    "tool": {
+      "id": 1,
+      "name": "web_search",
+      "query": "example domain",
+      "results": [
+        {
+          "snippet": "An example snippet with bold text.",
+          "title": "Example Domain & more",
+          "url": "https://example.com/a?x=1"
+        },
+        {
+          "snippet": "Direct snippet",
+          "title": "Direct link",
+          "url": "https://direct.example.org/page"
+        }
+      ],
+      "status": "done"
+    }
+  },
+  {
+    "delta": "Hello"
+  },
+  {
+    "delta": " from"
+  },
+  {
+    "delta": " mock"
+  },
+  {
+    "delta": " Ollama"
+  },
+  {
+    "completion_tokens": 4,
+    "done": true,
+    "prompt_tokens": 7
+  }
+]

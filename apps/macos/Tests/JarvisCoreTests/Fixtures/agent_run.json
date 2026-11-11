@@ -1,0 +1,38 @@
+{
+  "degraded": false,
+  "duration_s": 0.0,
+  "error": null,
+  "id": "task_ID",
+  "model": "127.0.0.1:PORT|llama3.2:3b",
+  "output": "Hello from mock Ollama",
+  "state": "succeeded",
+  "tokens": {
+    "completion": 4,
+    "prompt": 7
+  },
+  "trace": [
+    {
+      "detail": {
+        "agent": "research",
+        "depth": 0
+      },
+      "kind": "requested",
+      "ts": 0.0
+    },
+    {
+      "detail": {
+        "attempt": 0,
+        "model": "127.0.0.1:PORT|llama3.2:3b"
+      },
+      "kind": "model_attempt",
+      "ts": 0.0
+    },
+    {
+      "detail": {
+        "chars": 22
+      },
+      "kind": "completed",
+      "ts": 0.0
+    }
+  ]
+}

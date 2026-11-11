@@ -1,0 +1,43 @@
+[
+  {
+    "approval": {
+      "args": {
+        "command": "echo hello"
+      },
+      "id": "appr_ID",
+      "tool": "shell"
+    }
+  },
+  {
+    "tool": {
+      "args": {
+        "command": "echo hello"
+      },
+      "id": 1,
+      "name": "shell",
+      "status": "waiting_approval"
+    }
+  },
+  {
+    "tool": {
+      "args": {
+        "command": "echo hello"
+      },
+      "id": 1,
+      "name": "shell",
+      "status": "running"
+    }
+  },
+  {
+    "tool": {
+      "args": {
+        "command": "echo hello"
+      },
+      "exit_code": 0,
+      "id": 1,
+      "name": "shell",
+      "output": "exit code: 0\nstdout:\nhello",
+      "status": "done"
+    }
+  }
+]

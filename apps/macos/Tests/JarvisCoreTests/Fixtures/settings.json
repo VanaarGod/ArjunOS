@@ -1,0 +1,21 @@
+{
+  "attachment_context_chars": 12000,
+  "browser_enabled": true,
+  "files_enabled": true,
+  "memory_auto_inject": true,
+  "obsidian_agent_folder": "ArjunOS",
+  "obsidian_allow_write": true,
+  "obsidian_auto_context": true,
+  "obsidian_context_chars": 6000,
+  "obsidian_enabled": false,
+  "obsidian_store_memories": true,
+  "obsidian_vault_path": "",
+  "offline_mode": false,
+  "page_context_chars": 16000,
+  "read_paths": true,
+  "shell_enabled": true,
+  "web_search_active": true,
+  "web_search_consented": true,
+  "web_search_max_results": 5,
+  "web_search_mode": "auto"
+}

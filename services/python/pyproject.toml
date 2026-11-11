@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jarvis-bridge"
+version = "0.1.0"
+description = "JARVIS OS Python bridge: discovery, inference, memory, MCP, agents, adapters"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = ["httpx>=0.27", "fastapi>=0.110", "uvicorn>=0.30", "pypdf>=4.0", "psutil>=5.9"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.24"]
+
+[project.scripts]
+jarvis-bridge = "jarvis_bridge.api.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src"]

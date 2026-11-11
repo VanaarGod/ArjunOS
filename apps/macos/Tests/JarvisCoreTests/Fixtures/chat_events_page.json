@@ -1,0 +1,31 @@
+[
+  {
+    "page_used": {
+      "excerpted": false,
+      "host": "shop.example.com",
+      "ocr": false,
+      "prices": 1,
+      "source": "dom",
+      "status": "ready",
+      "structured": true,
+      "title": "Example product",
+      "total_chars": 36,
+      "url": "https://shop.example.com/p/1",
+      "used_chars": 36
+    }
+  },
+  {
+    "thinking": true
+  },
+  {
+    "ping": true
+  },
+  {
+    "delta": "On the page: $19.99."
+  },
+  {
+    "completion_tokens": null,
+    "done": true,
+    "prompt_tokens": null
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "api_version": "v1",
+  "bridge_version": "0.1.0",
+  "memory_schema": 1,
+  "offline_mode": false,
+  "ok": true,
+  "pdf_support": true,
+  "python": "PYTHON"
+}

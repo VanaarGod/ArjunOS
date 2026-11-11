@@ -1,0 +1,19 @@
+[
+  {
+    "base_url": "http://127.0.0.1:PORT",
+    "failures": 0,
+    "hint": "Ollama",
+    "key": "127.0.0.1:PORT",
+    "kind": "ollama",
+    "last_error": null,
+    "last_seen": 0.0,
+    "latency_ms": 0.0,
+    "models": [
+      "llama3.2:3b",
+      "qwen2.5-coder:7b"
+    ],
+    "owner": "discovered",
+    "status": "validated",
+    "version": "0.99.0-mock"
+  }
+]
