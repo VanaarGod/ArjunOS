@@ -11,9 +11,21 @@ Native SwiftUI app · tested Python bridge · your models, your Mac, your data.
 ![License Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue)
 ![Status early](https://img.shields.io/badge/status-early-orange)
 
+## Download
+
+**[⬇️ Download ArjunOS.dmg](https://github.com/VanaarGod/ArjunOS/releases/latest/download/ArjunOS.dmg)** (macOS 14+, Apple Silicon & Intel)
+
+1. Open the `.dmg` and drag **ArjunOS** into **Applications**.
+2. On first launch, macOS may say it can't verify the developer. Right-click the app → **Open**, or go to **System Settings → Privacy & Security → Open Anyway**.
+3. Optional: install [Ollama](https://ollama.com) or another local model server so ArjunOS has a model to talk to.
+
+Older versions are on the [Releases page](https://github.com/VanaarGod/ArjunOS/releases).
+
 [Features](#features) · [Quick start](#quick-start) · [Settings](#settings) · [Crew](#crew) · [Architecture](#architecture) · [Security](#security-model) · [Development](#development) · [Docs](#documentation)
 
 </div>
+
+[![Download for macOS](https://img.shields.io/badge/Download-macOS%20.dmg-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/VanaarGod/ArjunOS/releases/latest/download/ArjunOS.dmg)
 
 > **Status: early.** The chat core, safety layer, memory, MCP, web search, file reading and the interface are real and have been run on a Mac. Voice, scheduling, plugins, a setup wizard and cloud providers are **not built**. Read [`docs/implementation-status.md`](docs/implementation-status.md) before trusting any claim.
 
